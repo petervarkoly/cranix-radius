@@ -28,10 +28,10 @@
 #	
 ldap {
 	server = "localhost"
-	identity = "cn=Administrator,LDAPBASE"
-	password = PASSWD
+	identity = "cn=ossradius,ou=daemonadmins,LDAPBASE"
+	password = PASSWORD
 	basedn = "ou=people,LDAPBASE"
-	filter = "(&(!(rasAccess=no))(|(rasAccess=%{Calling-Station-Id}*)(rasAccess=all))(uid=%u))"
+	filter = "(&(|(rasAccess=%{Calling-Station-Id})(rasAccess=all))(uid=%u))"
 	#base_filter = "(objectclass=schoolAccount)"
 
 	#  How many connections to keep open to the LDAP server.

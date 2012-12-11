@@ -52,7 +52,7 @@ exec set_logon {
 	#  field, so things like the following example will
 	#  work.
 	#
-	program = "/usr/sbin/oss_set_logon.pl %{User-Name} %{Calling-Station-Id}"
+	program = "/usr/share/oss/tools/oss-radius/oss_set_logon.pl %{User-Name} %{Calling-Station-Id}"
 
 	#
 	#  The attributes which are placed into the

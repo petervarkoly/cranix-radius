@@ -61,6 +61,7 @@
 #  need to setup hints for the remote radius server
 authorize {
         preprocess
+	rewrite_calling_station_id
         chap
         mschap
         suffix

@@ -23,6 +23,7 @@ dist:
 	        osc ci -m "New Build Version"; \
 	fi
 	echo $(NRELEASE) > RELEASE
+	git commit -a -m "New release"
 
 install:
 	  mkdir   -p $(DESTDIR)/usr/share/oss/templates/oss-radius
