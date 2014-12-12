@@ -35,7 +35,28 @@ if ($oss->{SYSCONFIG}->{SCHOOL_DEBUG} eq 'yes')
 	}
 	system("echo '$envr' >> /tmp/radius");
 }
+#On a WLAN device only one user can be logged in. 
+#Delete the other entries
+$result  = $oss->{LDAP}->search(
+        base   => $oss->{SYSCONFIG}->{USER_BASE},
+        scope  => 'one',
+        filter => "configurationValue=LOGGED_ON=$ip"
+);
+if( $result->code )
+{
+        $oss->ldap_error($result);
+        print STDERR $oss->{ERROR}->{code}."\n";
+        print STDERR $oss->{ERROR}->{text}."\n";
+}
+else
+{
+	foreach my $entry ( $result->entries )
+	{
+	    $oss->{LDAP}->modify( $entry->dn, delete => { configurationValue => "LOGGED_ON=$ip" } );
+	}
+}
 
+#Now we create the new entries
 my @confs    = $ue->get_value('configurationValue');
 foreach my $v (@confs)
 {
