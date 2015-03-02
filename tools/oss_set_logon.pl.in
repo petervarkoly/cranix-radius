@@ -57,20 +57,21 @@ else
 }
 
 #Now we create the new entries
-my @confs    = $ue->get_value('configurationValue');
-foreach my $v (@confs)
-{
-   if( $v =~ /^LOGGED_ON=.*/ )
-   {
-	push @delconf, $v;
-   }
-}
-if( scalar(@delconf) ){
-	push @changes,  delete => [ configurationValue => \@delconf ] ;
-}
-push @changes,  add => [ configurationValue => "LOGGED_ON=$ip" ] ;
+#my @confs    = $ue->get_value('configurationValue');
+#foreach my $v (@confs)
+#{
+#   if( $v =~ /^LOGGED_ON=.*/ )
+#   {
+#	push @delconf, $v;
+#   }
+#}
+#if( scalar(@delconf) ){
+#	push @changes,  delete => [ configurationValue => \@delconf ] ;
+#}
+#push @changes,  add => [ configurationValue => "LOGGED_ON=$ip" ] ;
 
-$result = $oss->{LDAP}->modify( $udn , changes => \@changes );
+#$result = $oss->{LDAP}->modify( $udn , changes => \@changes );
+$result = $oss->{LDAP}->modify( $udn , add => { configurationValue => "LOGGED_ON=$ip" } );
 if( $result->code )
 {
 	$oss->ldap_error($result);
