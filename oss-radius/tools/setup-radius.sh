@@ -53,11 +53,11 @@ do
 	cp $i /etc/raddb/$i
 done
 
-sed -i s#SCHOOL_SERVER_NET#$SCHOOL_SERVER_NET# /etc/raddb/clients.conf
-sed -i s#PASSWORD#$PASSWORD#     /etc/raddb/modules/ldap
-sed -i s/LDAPBASE/$LDAPBASE/     /etc/raddb/modules/ldap
-sed    s#PASSWORD#$PASSWORD#     /usr/share/oss/tools/oss-radius/oss_set_logon.pl.in > /usr/share/oss/tools/oss-radius/oss_set_logon.pl
-sed -i s/LDAPBASE/$LDAPBASE/     /usr/share/oss/tools/oss-radius/oss_set_logon.pl
+sed -i "s#SCHOOL_SERVER_NET#$SCHOOL_SERVER_NET#" /etc/raddb/clients.conf
+sed -i "s#PASSWORD#$PASSWORD#"     /etc/raddb/modules/ldap
+sed -i "s/LDAPBASE/$LDAPBASE/"     /etc/raddb/modules/ldap
+sed    "s#PASSWORD#$PASSWORD#"     /usr/share/oss/tools/oss-radius/oss_set_logon.pl.in > /usr/share/oss/tools/oss-radius/oss_set_logon.pl
+sed -i "s/LDAPBASE/$LDAPBASE/"     /usr/share/oss/tools/oss-radius/oss_set_logon.pl
 chgrp radiusd /usr/share/oss/tools/oss-radius/oss_set_logon.pl
 chmod 750     /usr/share/oss/tools/oss-radius/oss_set_logon.pl
 echo "SCHOOL_USE_RADIUS
@@ -96,8 +96,8 @@ rcldap restart
 #Setup customized certificates
 for i in ca.cnf  client.cnf  server.cnf
 do
-	sed -i s/#NAME#/$SCHOOL_NAME/     /etc/raddb/certs/$i
-	sed -i s/#DOMAIN#/$SCHOOL_DOMAIN/ /etc/raddb/certs/$i
+	sed -i "s/#NAME#/$SCHOOL_NAME/"     /etc/raddb/certs/$i
+	sed -i "s/#DOMAIN#/$SCHOOL_DOMAIN/" /etc/raddb/certs/$i
 done
 
 cd /etc/raddb/certs/
