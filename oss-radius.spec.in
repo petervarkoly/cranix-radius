@@ -14,7 +14,6 @@ Group:        Productivity/
 Source:       %{name}.tar.bz2
 BuildArch:    noarch
 PreReq:       findutils freeradius-server openschool-base sed
-BuildRequires: -brp-check-suse rsync
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 
 %description
