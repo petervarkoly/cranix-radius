@@ -20,4 +20,3 @@ zypper ar /tmp/oss-radius.repo
 zypper --gpg-auto-import-keys ref
 zypper -n install oss-radius
 rclmd restart
-
