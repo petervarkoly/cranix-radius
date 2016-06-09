@@ -21,7 +21,7 @@ dist:
 	rpmbuild -bb $(PACKAGE).spec
 	rpm --addsign /usr/src/packages/RPMS/noarch/$(PACKAGE)-$(VERSION)-$(RELEASE).noarch.rpm 
 	mv /usr/src/packages/RPMS/noarch/$(PACKAGE)-$(VERSION)-$(RELEASE).noarch.rpm $(REPO)/noarch
-	cp /data1/OSC/home:openschoolserver/repomd.xml.key $(REPO)/repodata
+	cp /data1/OSC/home:openschoolserver/oss-key.gpg $(REPO)/repodata/repomd.xml.key
 	createrepo $(REPO)
 	gpg -a --detach-sign $(REPO)/repodata/repomd.xml
 	echo $(NRELEASE) > RELEASE
