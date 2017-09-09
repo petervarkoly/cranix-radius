@@ -14,7 +14,7 @@ type=rpm-md
 keeppackages=0
 " > /tmp/oss-radius.repo
 
-wget -O repomd.xml.key https://$REPO_USER:$REPO_PASSWORD@repo.openschoolserver.net/addons/oss-radius/repodata/repomd.xml.key
+wget --no-check-certificate -O repomd.xml.key https://$REPO_USER:$REPO_PASSWORD@repo.openschoolserver.net/addons/oss-radius/repodata/repomd.xml.key
 gpg --import repomd.xml.key
 zypper ar /tmp/oss-radius.repo
 zypper --gpg-auto-import-keys ref
