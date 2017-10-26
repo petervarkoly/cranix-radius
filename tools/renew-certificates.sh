@@ -39,6 +39,6 @@ rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
 ./bootstrap
 
 insserv freeradius
-rcfreeradius start
+rcfreeradius restart
 cd $HERE
 
