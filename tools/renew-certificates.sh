@@ -27,12 +27,13 @@ done
 test -e /etc/sysconfig/schoolserver || exit 0
 . /etc/sysconfig/schoolserver
 #Setup customized certificates
-for i in ca.cnf  client.cnf  server.cnf
+for i in ca.cnf  client.cnf  server.cnf 
 do
         cp /usr/share/oss/templates/oss-radius/certs/$i /etc/raddb/certs/$i
         sed -i "s/#NAME#/$SCHOOL_NAME/"     /etc/raddb/certs/$i
         sed -i "s/#DOMAIN#/$SCHOOL_DOMAIN/" /etc/raddb/certs/$i
 done
+cp /usr/share/oss/templates/oss-radius/certs/Makefile /etc/raddb/certs/
 
 cd /etc/raddb/certs/
 rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
