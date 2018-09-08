@@ -32,8 +32,6 @@ make DESTDIR=%{buildroot} install
 /usr/share/oss/tools/oss-radius/setup-radius.sh
 
 %files
-%defattr(644,root,root,755)
-/usr/share/lmd/
 %defattr(640,root,root,750)
 /usr/share/oss/templates/oss-radius/
 %defattr(750,root,radiusd,750)

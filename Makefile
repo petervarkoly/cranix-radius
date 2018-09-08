@@ -21,8 +21,8 @@ dist:
 	rpmbuild -bb $(PACKAGE).spec
 	rpm --addsign /usr/src/packages/RPMS/noarch/$(PACKAGE)-$(VERSION)-$(RELEASE).noarch.rpm 
 	mv /usr/src/packages/RPMS/noarch/$(PACKAGE)-$(VERSION)-$(RELEASE).noarch.rpm $(REPO)/noarch
-	cp /data1/OSC/home:openschoolserver/oss-key.gpg $(REPO)/repodata/repomd.xml.key
 	createrepo $(REPO)
+	cp /data1/OSC/home:openschoolserver/oss-key.gpg $(REPO)/repodata/repomd.xml.key
 	gpg -a --detach-sign $(REPO)/repodata/repomd.xml
 	echo $(NRELEASE) > RELEASE
 	git commit -a -m "New release"
@@ -33,6 +33,4 @@ install:
 	  rsync -aC raddb/ $(DESTDIR)/usr/share/oss/templates/oss-radius/
 	  mkdir   -p $(DESTDIR)/usr/share/oss/tools/oss-radius
 	  rsync -aC tools/ $(DESTDIR)/usr/share/oss/tools/oss-radius/
-	  mkdir   -p $(DESTDIR)/usr/share/lmd/alibs
-	  rsync -aC alibs/ $(DESTDIR)/usr/share/lmd/alibs/
 
