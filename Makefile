@@ -1,17 +1,17 @@
 # Make file for the SL System Managemant Daemon
 DESTDIR         = /
 PACKAGE		= oss-radius
-LMDDIR          = $(DESTDIR)/usr/share/lmd
 REQPACKAGES     = $(shell cat REQPACKAGES)
 VERSION         = $(shell test -e ../VERSION && cp ../VERSION VERSION ; cat VERSION)
 RELEASE         = $(shell cat RELEASE)
 NRELEASE        = $(shell echo $(RELEASE) + 1 | bc )
 HERE		= $(shell pwd)
-REPO            = /repo/www/addons/$(PACKAGE)
+REPO            = /repo/www/addons/OSS-4.0/$(PACKAGE)
 
 dist:
 	if [ -e $(PACKAGE) ]; then rm -rf $(PACKAGE); fi
 	mkdir $(PACKAGE)
+	mkdir -p $(REPO)
 	cp Makefile $(PACKAGE)/
 	rsync -aC raddb tools $(PACKAGE)/
 	tar cjf $(PACKAGE).tar.bz2 $(PACKAGE)
