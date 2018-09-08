@@ -2,7 +2,7 @@
 DESTDIR         = /
 PACKAGE		= oss-radius
 REQPACKAGES     = $(shell cat REQPACKAGES)
-VERSION         = $(shell test -e ../VERSION && cp ../VERSION VERSION ; cat VERSION)
+#VERSION         = $(shell test -e ../VERSION && cp ../VERSION VERSION ; cat VERSION)
 RELEASE         = $(shell cat RELEASE)
 NRELEASE        = $(shell echo $(RELEASE) + 1 | bc )
 HERE		= $(shell pwd)
