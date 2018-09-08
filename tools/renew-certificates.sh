@@ -33,12 +33,13 @@ do
         sed -i "s/#NAME#/$SCHOOL_NAME/"     /etc/raddb/certs/$i
         sed -i "s/#DOMAIN#/$SCHOOL_DOMAIN/" /etc/raddb/certs/$i
 done
+cp /usr/share/oss/templates/oss-radius/certs/Makefile /etc/raddb/certs/
 
 cd /etc/raddb/certs/
 rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
 ./bootstrap
 
-insserv freeradius
-rcfreeradius start
+systemctl enable   radiusd
+systemctl restart  radiusd
 cd $HERE
 
