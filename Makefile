@@ -13,7 +13,7 @@ dist:
 	if [ -e $(PACKAGE) ]; then rm -rf $(PACKAGE); fi
 	mkdir $(PACKAGE)
 	cp Makefile $(PACKAGE)/
-	rsync -aC raddb alibs tools $(PACKAGE)/
+	rsync -aC raddb tools $(PACKAGE)/
 	tar cjf $(PACKAGE).tar.bz2 $(PACKAGE)
 	sed    "s/@VERSION@/$(VERSION)/" $(PACKAGE).spec.in >  $(PACKAGE).spec
 	sed -i "s/@RELEASE@/$(RELEASE)/" $(PACKAGE).spec
