@@ -27,7 +27,7 @@ done
 test -e /etc/sysconfig/schoolserver || exit 0
 . /etc/sysconfig/schoolserver
 #Setup customized certificates
-for i in ca.cnf  client.cnf  server.cnf
+for i in ca.cnf  client.cnf  server.cnf 
 do
         cp /usr/share/oss/templates/oss-radius/certs/$i /etc/raddb/certs/$i
         sed -i "s/#NAME#/$SCHOOL_NAME/"     /etc/raddb/certs/$i
