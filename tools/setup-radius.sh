@@ -54,3 +54,4 @@ rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
 
 systemctl enable radiusd
 systemctl start  radiusd
+
