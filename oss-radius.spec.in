@@ -12,7 +12,7 @@ Packager:     peter@varkoly.de
 Group:        Productivity/
 Source:       %{name}.tar.bz2
 BuildArch:    noarch
-PreReq:       findutils freeradius-server openschool-base sed
+PreReq:       findutils freeradius-server oss-base sed
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 BuildRequires: -post-build-checks
 
