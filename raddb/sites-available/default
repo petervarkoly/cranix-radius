@@ -271,6 +271,8 @@ listen {
 #  Make *sure* that 'preprocess' comes before any realm if you
 #  need to setup hints for the remote radius server
 authorize {
+
+	rewrite_calling_station_id
 	#
 	#  Take a User-Name, and perform some checks on it, for spaces and other
 	#  invalid characters.  If the User-Name appears invalid, reject the
@@ -687,6 +689,8 @@ session {
 #  Once we KNOW that the user has been authenticated, there are
 #  additional steps we can take.
 post-auth {
+
+	set_logged_on
 	#
 	#  If you need to have a State attribute, you can
 	#  add it here.  e.g. for later CoA-Request with
