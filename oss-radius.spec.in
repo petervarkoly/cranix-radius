@@ -30,11 +30,11 @@ make DESTDIR=%{buildroot} install
 
 %post
 if [ "$1" -eq 1 ] ; then
-   /usr/share/oss/tools/oss-radius/setup-radius.sh
+   /usr/share/oss/tools/radius/setup.sh
 fi
 
 %files
 %defattr(640,root,root,750)
-/usr/share/oss/templates/oss-radius/
+/usr/share/oss/templates/radius/
 %defattr(750,root,radiusd,750)
-/usr/share/oss/tools/oss-radius/
+/usr/share/oss/tools/radius/

@@ -2,7 +2,7 @@
 
 usage ()
 {
-        echo '/usr/share/oss/tools/oss-radius/setup-radius.sh [ -h -d -r ]'
+        echo '/usr/share/oss/tools/radius/setup.sh [ -h -d -r ]'
         echo 'Optional parameters :'
         echo '          -h,   --help         Display this help.'
         echo '          -d,   --description  Display the descriptiont.'
@@ -33,11 +33,12 @@ if [ -z "${NtlmEnabled}" ]; then
 	sed -i '/\[global\]/a ntlm auth = yes' /etc/samba/smb.conf 
 fi
 
-cd /usr/share/oss/templates/oss-radius/
+cd /usr/share/oss/templates/radius/
 for i in $( find -type f )
 do
 	cp $i /etc/raddb/$i
 done
+ln -fs  ../mods-available/set_logged_on /etc/raddb/mods-enabled/set_logged_on
 
 sed -i "s#SCHOOL_SERVER_NET#${SCHOOL_SERVER_NET}#" /etc/raddb/clients.conf
 sed -i "s#SCHOOL_WORKGROUP#${SCHOOL_WORKGROUP}#"   /etc/raddb/mods-available/mschap
