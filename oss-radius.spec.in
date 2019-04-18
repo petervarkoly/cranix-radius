@@ -12,7 +12,8 @@ Packager:     peter@varkoly.de
 Group:        Productivity/
 Source:       %{name}.tar.bz2
 BuildArch:    noarch
-PreReq:       findutils freeradius-server oss-base sed
+PreReq:       findutils freeradius-server sed
+PreReq:       oss-base >= 4.0.1
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 BuildRequires: -post-build-checks
 
