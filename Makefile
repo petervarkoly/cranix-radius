@@ -28,8 +28,8 @@ dist:
 	git push
 
 install:
-	  mkdir   -p $(DESTDIR)/usr/share/oss/templates/oss-radius
-	  rsync -aC raddb/ $(DESTDIR)/usr/share/oss/templates/oss-radius/
-	  mkdir   -p $(DESTDIR)/usr/share/oss/tools/oss-radius
-	  rsync -aC tools/ $(DESTDIR)/usr/share/oss/tools/oss-radius/
+	  mkdir   -p $(DESTDIR)/usr/share/oss/templates/radius
+	  rsync -aC raddb/ $(DESTDIR)/usr/share/oss/templates/radius/
+	  mkdir   -p $(DESTDIR)/usr/share/oss/tools/radius
+	  rsync -aC tools/ $(DESTDIR)/usr/share/oss/tools/radius/
 
