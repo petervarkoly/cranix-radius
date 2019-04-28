@@ -31,6 +31,8 @@ make DESTDIR=%{buildroot} install
 
 %post
 if [ "$1" -eq 1 ] ; then
+   /usr/share/oss/tools/radius/update.sh
+else
    /usr/share/oss/tools/radius/setup.sh
 fi
 
