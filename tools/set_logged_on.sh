@@ -5,7 +5,7 @@
 # If the registration was successfully (OK) wait a litle bit an break the connection
 # to trigger a reconnection to get the new ip address.
 # If the registration was not successfully the client stands in the ANON_DCHP range.
-# Copyright Dipl.-Ing. Peter Varkoly <pvarkoly@icephalix.eu>
+# Copyright Dipl.-Ing. Peter Varkoly <pvarkoly@cephalix.eu>
 
 if [ "$2" ]
 then
