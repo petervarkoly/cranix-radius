@@ -6,7 +6,6 @@ usage ()
         echo 'Optional parameters :'
         echo '          -h,   --help         Display this help.'
         echo '          -d,   --description  Display the descriptiont.'
-        echo '          -r,   --force-reset  Setup the oss-radius new. Creates new certificates.'
 
 }
 
@@ -14,8 +13,6 @@ RESET=0
 
 while [ "$1" != "" ]; do
     case $1 in
-        -r | --force-reset )    RESET=1
-                                ;;
         -d | --description )    usage
                                 exit;;
         -h | --help )           usage
@@ -27,6 +24,7 @@ done
 test -e /etc/sysconfig/schoolserver || exit 0
 . /etc/sysconfig/schoolserver
 
+DATE=$( /usr/share/oss/tools/oss_date.sh )
 #Enable ntlm auth
 NtlmEnabled=$( grep 'ntlm auth = yes' /etc/samba/smb.conf )
 if [ -z "${NtlmEnabled}" ]; then
@@ -37,7 +35,7 @@ fi
 cd /usr/share/oss/templates/radius/
 for i in $( find -type f )
 do
-	if [ "$i" = "clients.conf" ]; then
+	if [[ $i == *clients.conf ]]; then
 		continue
 	else
 		cp /etc/raddb/$i /etc/raddb/$i.$DATE
