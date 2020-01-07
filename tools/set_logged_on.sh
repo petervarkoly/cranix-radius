@@ -9,23 +9,29 @@
 if [ "$2" ]
 then
 	MAC=$( echo $2 |  tr "-" ":" )
-	OUT=$( curl -s -X PUT "http://localhost:9080/api/selfmanagement/addDeviceToUser/$MAC/$1"  )
-	case "$OUT" in
-		ALREADY-REGISTERED)
-		        curl -s -X PUT "http://localhost:9080/api/devices/loggedInUserByMac/$MAC/$1" &> /dev/null
-			;;
-		OK)
-		        curl -s -X PUT "http://localhost:9080/api/devices/loggedInUserByMac/$MAC/$1" &> /dev/null
-			sleep 10
-			;;
-		*)
-			if [ "${SCHOOL_FORCE_REGISTER_DEVICE}" = "yes" ]; then
-				echo "Device can not be registered."
-                                exit 1
-                        else
-                                curl -s -X PUT "http://localhost:9080/api/devices/loggedInUserByMac/$MAC/$1" &> /dev/null
-                        fi
-	esac
+	if [ "${SCHOOL_RADIUS_REGISTER_DEVICE}" = "yes" ]
+	then
+		OUT=$( curl -s -X PUT "http://localhost:9080/api/selfmanagement/addDeviceToUser/$MAC/$1"  )
+		case "$OUT" in
+			ALREADY-REGISTERED)
+				curl -s -X PUT "http://localhost:9080/api/devices/loggedInUserByMac/$MAC/$1" &> /dev/null
+				;;
+			OK)
+				curl -s -X PUT "http://localhost:9080/api/devices/loggedInUserByMac/$MAC/$1" &> /dev/null
+				sleep 10
+				;;
+			*)
+				if [ "${SCHOOL_FORCE_REGISTER_DEVICE}" = "yes" ]; then
+					echo "Device can not be registered."
+					exit 1
+				else
+					curl -s -X PUT "http://localhost:9080/api/devices/loggedInUserByMac/$MAC/$1" &> /dev/null
+				fi
+		esac
+	else
+		curl -s -X PUT "http://localhost:9080/api/devices/loggedInUserByMac/$MAC/$1" &> /dev/null
+
+	fi
 fi
 exit 0
 

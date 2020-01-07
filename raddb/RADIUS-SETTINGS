@@ -1,0 +1,11 @@
+
+## Type:        yesno
+## Default:     no
+# Shall radius register AdHoc devices automaticaly.
+SCHOOL_RADIUS_REGISTER_DEVICE="no"
+
+## Type:        yesno
+## Default:     no
+# If it is yes devices can not be registered do not get an IP-address. Otherwise these devices get an IP-address from the ANON_DHCP range.
+SCHOOL_FORCE_REGISTER_DEVICE="no"
+

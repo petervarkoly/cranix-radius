@@ -37,10 +37,12 @@ for i in $( find -type f )
 do
 	if [[ $i == *clients.conf ]]; then
 		continue
-	else
-		cp /etc/raddb/$i /etc/raddb/$i.$DATE
-		cp $i /etc/raddb/$i
-        fi	       
+	fi
+        if [[ $i == *RADIUS-SETTINGS ]]; then
+                continue
+        fi
+	cp /etc/raddb/$i /etc/raddb/$i.$DATE
+	cp $i /etc/raddb/$i
 done
 ln -fs  ../mods-available/set_logged_on /etc/raddb/mods-enabled/set_logged_on
 
@@ -49,4 +51,6 @@ sed -i "s#SCHOOL_WORKGROUP#${SCHOOL_WORKGROUP}#"   /etc/raddb/mods-available/msc
 
 systemctl enable  radiusd
 systemctl restart radiusd
+
+/usr/bin/fillup /etc/sysconfig/schoolserver /usr/share/oss/templates/radius/RADIUS-SETTINGS /etc/sysconfig/schoolserver
 

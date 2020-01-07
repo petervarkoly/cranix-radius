@@ -30,7 +30,6 @@ IEEE 802.1x authentication. WPA2 via PEAP with MSCHAPv2
 make DESTDIR=%{buildroot} install
 
 %post
-echo ${1:-0} >> /tmp/oss-radius
 if [ ${1:-0} -gt 1 ]; then
    /usr/share/oss/tools/radius/update.sh
 else

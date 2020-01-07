@@ -37,6 +37,9 @@ fi
 cd /usr/share/oss/templates/radius/
 for i in $( find -type f )
 do
+	if [[ $i == *RADIUS-SETTINGS ]]; then
+                continue
+	fi
 	cp $i /etc/raddb/$i
 done
 ln -fs  ../mods-available/set_logged_on /etc/raddb/mods-enabled/set_logged_on
@@ -57,3 +60,4 @@ rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
 systemctl enable radiusd
 systemctl start  radiusd
 
+/usr/bin/fillup /etc/sysconfig/schoolserver /usr/share/oss/templates/radius/RADIUS-SETTINGS /etc/sysconfig/schoolserver 
