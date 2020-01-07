@@ -7,7 +7,7 @@ VERSION		= $(shell cat VERSION)
 RELEASE         = $(shell cat RELEASE)
 NRELEASE        = $(shell echo $(RELEASE) + 1 | bc )
 HERE		= $(shell pwd)
-REPO		= /home/OSC/home:varkoly:OSS-4-0:stable-samba-4.8.9/oss-radius
+REPO		= /home/OSC/home:varkoly:OSS-4-0:stable-samba-4.8.9/
 
 dist:
 	if [ -e $(PACKAGE) ]; then rm -rf $(PACKAGE); fi
