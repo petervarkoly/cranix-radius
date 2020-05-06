@@ -1,6 +1,6 @@
 exec set_logged_on {
         wait = yes
-        program = "/usr/share/oss/tools/radius/set_logged_on.sh %{User-Name} %{Calling-Station-Id}"
+        program = "/usr/share/cranix/tools/radius/set_logged_on.sh %{User-Name} %{Calling-Station-Id}"
         input_pairs = request
         output_pairs = reply
         shell_escape = yes

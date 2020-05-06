@@ -2,7 +2,7 @@
 
 usage ()
 {
-        echo '/usr/share/oss/tools/radius/setup.sh [ -h -d -r ]'
+        echo '/usr/share/cranix/tools/radius/setup.sh [ -h -d -r ]'
         echo 'Optional parameters :'
         echo '          -h,   --help         Display this help.'
         echo '          -d,   --description  Display the descriptiont.'
@@ -21,10 +21,10 @@ while [ "$1" != "" ]; do
     shift
 done
 
-test -e /etc/sysconfig/schoolserver || exit 0
-. /etc/sysconfig/schoolserver
+test -e /etc/sysconfig/cranix || exit 0
+. /etc/sysconfig/cranix
 
-DATE=$( /usr/share/oss/tools/oss_date.sh )
+DATE=$( /usr/share/cranix/tools/cranix_date.sh )
 #Enable ntlm auth
 NtlmEnabled=$( grep 'ntlm auth = yes' /etc/samba/smb.conf )
 if [ -z "${NtlmEnabled}" ]; then
@@ -32,7 +32,7 @@ if [ -z "${NtlmEnabled}" ]; then
 	systemctl restart samba
 fi
 
-cd /usr/share/oss/templates/radius/
+cd /usr/share/cranix/templates/radius/
 for i in $( find -type f )
 do
 	if [[ $i == *clients.conf ]]; then
@@ -46,11 +46,11 @@ do
 done
 ln -fs  ../mods-available/set_logged_on /etc/raddb/mods-enabled/set_logged_on
 
-sed -i "s#SCHOOL_SERVER_NET#${SCHOOL_SERVER_NET}#" /etc/raddb/clients.conf
-sed -i "s#SCHOOL_WORKGROUP#${SCHOOL_WORKGROUP}#"   /etc/raddb/mods-available/mschap
+sed -i "s#CRANIX_SERVER_NET#${CRANIX_SERVER_NET}#" /etc/raddb/clients.conf
+sed -i "s#CRANIX_WORKGROUP#${CRANIX_WORKGROUP}#"   /etc/raddb/mods-available/mschap
 
 systemctl enable  radiusd
 systemctl restart radiusd
 
-/usr/bin/fillup /etc/sysconfig/schoolserver /usr/share/oss/templates/radius/RADIUS-SETTINGS /etc/sysconfig/schoolserver
+/usr/bin/fillup /etc/sysconfig/cranix /usr/share/cranix/templates/radius/RADIUS-SETTINGS /etc/sysconfig/cranix
 

@@ -2,11 +2,11 @@
 
 usage ()
 {
-        echo '/usr/share/oss/tools/radius/setup.sh [ -h -d -r ]'
+        echo '/usr/share/cranix/tools/radius/setup.sh [ -h -d -r ]'
         echo 'Optional parameters :'
         echo '          -h,   --help         Display this help.'
         echo '          -d,   --description  Display the descriptiont.'
-        echo '          -r,   --force-reset  Setup the oss-radius new. Creates new certificates.'
+        echo '          -r,   --force-reset  Setup the cranix-radius new. Creates new certificates.'
 
 }
 
@@ -24,8 +24,8 @@ while [ "$1" != "" ]; do
     shift
 done
 
-test -e /etc/sysconfig/schoolserver || exit 0
-. /etc/sysconfig/schoolserver
+test -e /etc/sysconfig/cranix || exit 0
+. /etc/sysconfig/cranix
 
 #Enable ntlm auth
 NtlmEnabled=$( grep 'ntlm auth = yes' /etc/samba/smb.conf )
@@ -34,7 +34,7 @@ if [ -z "${NtlmEnabled}" ]; then
 	systemctl restart samba
 fi
 
-cd /usr/share/oss/templates/radius/
+cd /usr/share/cranix/templates/radius/
 for i in $( find -type f )
 do
 	if [[ $i == *RADIUS-SETTINGS ]]; then
@@ -44,13 +44,13 @@ do
 done
 ln -fs  ../mods-available/set_logged_on /etc/raddb/mods-enabled/set_logged_on
 
-sed -i "s#SCHOOL_SERVER_NET#${SCHOOL_SERVER_NET}#" /etc/raddb/clients.conf
-sed -i "s#SCHOOL_WORKGROUP#${SCHOOL_WORKGROUP}#"   /etc/raddb/mods-available/mschap
+sed -i "s#CRANIX_SERVER_NET#${CRANIX_SERVER_NET}#" /etc/raddb/clients.conf
+sed -i "s#CRANIX_WORKGROUP#${CRANIX_WORKGROUP}#"   /etc/raddb/mods-available/mschap
 #Setup customized certificates
 for i in ca.cnf  client.cnf  server.cnf
 do
-	sed -i "s/#NAME#/${SCHOOL_NAME}/"     /etc/raddb/certs/$i
-	sed -i "s/#DOMAIN#/${SCHOOL_DOMAIN}/" /etc/raddb/certs/$i
+	sed -i "s/#NAME#/${CRANIX_NAME}/"     /etc/raddb/certs/$i
+	sed -i "s/#DOMAIN#/${CRANIX_DOMAIN}/" /etc/raddb/certs/$i
 done
 
 cd /etc/raddb/certs/
@@ -60,4 +60,4 @@ rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
 systemctl enable radiusd
 systemctl start  radiusd
 
-/usr/bin/fillup /etc/sysconfig/schoolserver /usr/share/oss/templates/radius/RADIUS-SETTINGS /etc/sysconfig/schoolserver 
+/usr/bin/fillup /etc/sysconfig/cranix /usr/share/cranix/templates/radius/RADIUS-SETTINGS /etc/sysconfig/cranix 

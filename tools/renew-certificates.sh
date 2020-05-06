@@ -3,9 +3,9 @@
 usage ()
 {
 
-        echo '/usr/share/oss/tools/oss-radius/renew-certificates.sh [ -h -d ]'
+        echo '/usr/share/cranix/tools/radius/renew-certificates.sh [ -h -d ]'
         echo
-        echo 'Renew the oss-radius certificates'
+        echo 'Renew the cranix-radius certificates'
         echo
         echo 'Optional parameters :'
         echo '          -h,   --help         Display this help.'
@@ -24,16 +24,16 @@ while [ "$1" != "" ]; do
     shift
 done
 
-test -e /etc/sysconfig/schoolserver || exit 0
-. /etc/sysconfig/schoolserver
+test -e /etc/sysconfig/cranix || exit 0
+. /etc/sysconfig/cranix
 #Setup customized certificates
 for i in ca.cnf  client.cnf  server.cnf 
 do
-        cp /usr/share/oss/templates/oss-radius/certs/$i /etc/raddb/certs/$i
-        sed -i "s/#NAME#/$SCHOOL_NAME/"     /etc/raddb/certs/$i
-        sed -i "s/#DOMAIN#/$SCHOOL_DOMAIN/" /etc/raddb/certs/$i
+        cp /usr/share/cranix/templates/radius/certs/$i /etc/raddb/certs/$i
+        sed -i "s/#NAME#/$CRANIX_NAME/"     /etc/raddb/certs/$i
+        sed -i "s/#DOMAIN#/$CRANIX_DOMAIN/" /etc/raddb/certs/$i
 done
-cp /usr/share/oss/templates/oss-radius/certs/Makefile /etc/raddb/certs/
+cp /usr/share/cranix/templates/radius/certs/Makefile /etc/raddb/certs/
 
 cd /etc/raddb/certs/
 rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*

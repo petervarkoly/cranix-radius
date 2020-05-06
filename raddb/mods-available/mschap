@@ -82,7 +82,7 @@ mschap {
 	# commented out.
 	#
 	winbind_username = "%{mschap:User-Name}"
-	winbind_domain = "SCHOOL_WORKGROUP"
+	winbind_domain = "CRANIX_WORKGROUP"
 
 	# When using single sign-on with a winbind connection and the
 	# client uses a different casing for the username than the

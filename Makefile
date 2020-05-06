@@ -1,9 +1,9 @@
 # Make file for the SL System Managemant Daemon
 DESTDIR         = /
-PACKAGE		= oss-radius
+PACKAGE		= cranix-radius
 REQPACKAGES     = $(shell cat REQPACKAGES)
 HERE		= $(shell pwd)
-REPO		= /home/OSC/home:varkoly:OSS-4-1:leap15.1/
+REPO		= /home/OSC/home:varkoly:CRANIX-4-2/
 
 dist:
 	if [ -e $(PACKAGE) ]; then rm -rf $(PACKAGE); fi
@@ -21,8 +21,8 @@ dist:
 	fi
 
 install:
-	  mkdir   -p $(DESTDIR)/usr/share/oss/templates/radius
-	  rsync -aC raddb/ $(DESTDIR)/usr/share/oss/templates/radius/
-	  mkdir   -p $(DESTDIR)/usr/share/oss/tools/radius
-	  rsync -aC tools/ $(DESTDIR)/usr/share/oss/tools/radius/
+	  mkdir   -p $(DESTDIR)/usr/share/cranix/templates/radius
+	  rsync -aC raddb/ $(DESTDIR)/usr/share/cranix/templates/radius/
+	  mkdir   -p $(DESTDIR)/usr/share/cranix/tools/radius
+	  rsync -aC tools/ $(DESTDIR)/usr/share/cranix/tools/radius/
 
