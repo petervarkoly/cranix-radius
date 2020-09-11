@@ -16,7 +16,7 @@ then
 			ALREADY-REGISTERED)
 				curl -s -X PUT "http://localhost:9080/api/devices/loggedInUserByMac/$MAC/$1" &> /dev/null
 				;;
-			OK)
+			OK*)
 				curl -s -X PUT "http://localhost:9080/api/devices/loggedInUserByMac/$MAC/$1" &> /dev/null
 				sleep 10
 				;;
