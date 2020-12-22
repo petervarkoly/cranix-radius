@@ -3,7 +3,7 @@ DESTDIR         = /
 PACKAGE		= cranix-radius
 REQPACKAGES     = $(shell cat REQPACKAGES)
 HERE		= $(shell pwd)
-REPO		= /home/OSC/home:varkoly:CRANIX-4-2/
+REPO		= /home/OSC/home:varkoly:CRANIX-4-2:leap15.2/
 
 dist:
 	if [ -e $(PACKAGE) ]; then rm -rf $(PACKAGE); fi

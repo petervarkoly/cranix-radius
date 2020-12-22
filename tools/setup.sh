@@ -11,6 +11,7 @@ usage ()
 }
 
 RESET=0
+DATE=$( /usr/share/cranix/tools/crx_date.sh )
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -40,6 +41,7 @@ do
 	if [[ $i == *RADIUS-SETTINGS ]]; then
                 continue
 	fi
+	cp /etc/raddb/$i /etc/raddb/$i-$DATE
 	cp $i /etc/raddb/$i
 done
 ln -fs  ../mods-available/set_logged_on /etc/raddb/mods-enabled/set_logged_on
