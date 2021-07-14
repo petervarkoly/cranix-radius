@@ -9,3 +9,7 @@ CRANIX_RADIUS_REGISTER_DEVICE="no"
 # If it is yes devices can not be registered do not get an IP-address. Otherwise these devices get an IP-address from the ANON_DHCP range.
 CRANIX_FORCE_REGISTER_DEVICE="no"
 
+## Type:        yesno
+## Default:     no
+# Shall radius update the mac adress of the last registered device if there are no free devices for the user.
+CRANIX_AUTO_UPDATE_MAC_ADDRESS="no"
