@@ -363,8 +363,8 @@ eap {
 		#
 		#  The values must be in quotes.
 		#
-#		tls_min_version = "1.0"
-#		tls_max_version = "1.2"
+		tls_min_version = "1.0"
+		tls_max_version = "1.2"
 
 
 		#
