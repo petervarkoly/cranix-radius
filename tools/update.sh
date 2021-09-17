@@ -24,7 +24,7 @@ done
 test -e /etc/sysconfig/cranix || exit 0
 . /etc/sysconfig/cranix
 
-DATE=$( /usr/share/cranix/tools/cranix_date.sh )
+DATE=$( /usr/share/cranix/tools/crx_date.sh )
 #Enable ntlm auth
 NtlmEnabled=$( grep 'ntlm auth = yes' /etc/samba/smb.conf )
 if [ -z "${NtlmEnabled}" ]; then
