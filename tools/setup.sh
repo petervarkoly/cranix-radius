@@ -59,7 +59,8 @@ cd /etc/raddb/certs/
 rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
 ./bootstrap
 
-systemctl enable radiusd
-systemctl start  radiusd
+/usr/bin/systemctl daemon-reload
+/usr/bin/systemctl enable radiusd
+/usr/bin/systemctl start  radiusd
 
 /usr/bin/fillup /etc/sysconfig/cranix /usr/share/cranix/templates/radius/RADIUS-SETTINGS /etc/sysconfig/cranix 

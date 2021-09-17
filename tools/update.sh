@@ -49,8 +49,9 @@ ln -fs  ../mods-available/set_logged_on /etc/raddb/mods-enabled/set_logged_on
 sed -i "s#CRANIX_SERVER_NET#${CRANIX_SERVER_NET}#" /etc/raddb/clients.conf
 sed -i "s#CRANIX_WORKGROUP#${CRANIX_WORKGROUP}#"   /etc/raddb/mods-available/mschap
 
-systemctl enable  radiusd
-systemctl restart radiusd
+/usr/bin/systemctl daemon-reload
+/usr/bin/systemctl enable  radiusd
+/usr/bin/systemctl restart radiusd
 
 /usr/bin/fillup /etc/sysconfig/cranix /usr/share/cranix/templates/radius/RADIUS-SETTINGS /etc/sysconfig/cranix
 
