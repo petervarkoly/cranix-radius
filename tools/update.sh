@@ -49,6 +49,19 @@ ln -fs  ../mods-available/set_logged_on /etc/raddb/mods-enabled/set_logged_on
 sed -i "s#CRANIX_SERVER_NET#${CRANIX_SERVER_NET}#" /etc/raddb/clients.conf
 sed -i "s#CRANIX_WORKGROUP#${CRANIX_WORKGROUP}#"   /etc/raddb/mods-available/mschap
 
+# Check how long the certificate is valide
+UNTIL=$( /usr/bin/date -d "$(/usr/bin/openssl x509 -in /etc/raddb/certs/server.pem -text | grep 'Not After :' | sed 's/.*Not After : //')" +%s )
+NOW=$( /usr/bin/date +%s )
+if [ $((UNTIL-NOW)) -lt 129600 ]; then
+	/usr/share/cranix/tools/radius/renew-certificates.sh
+fi
+
+# Check if the certficate contains the domain name
+CN=$(/usr/bin/openssl x509 -in /etc/raddb/certs/server.pem -text | grep  "CN = ${CRANIX_DOMAIN}")
+if [ -z "$CN" ]; then
+	/usr/share/cranix/tools/radius/renew-certificates.sh
+fi
+
 /usr/bin/systemctl daemon-reload
 /usr/bin/systemctl enable  radiusd
 /usr/bin/systemctl restart radiusd

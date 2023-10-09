@@ -11,7 +11,6 @@ usage ()
 }
 
 RESET=0
-DATE=$( /usr/share/cranix/tools/crx_date.sh )
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -28,11 +27,16 @@ done
 test -e /etc/sysconfig/cranix || exit 0
 . /etc/sysconfig/cranix
 
+# make backup from actuall configuration
+DATE=$( /usr/share/cranix/tools/crx_date.sh )
+mkdir -p /var/adm/cranix/backup/${DATE}/etc/raddb/
+rsync -av /etc/raddb/ /var/adm/cranix/backup/${DATE}/etc/raddb/
+
 #Enable ntlm auth
 NtlmEnabled=$( grep 'ntlm auth = yes' /etc/samba/smb.conf )
 if [ -z "${NtlmEnabled}" ]; then
 	sed -i '/\[global\]/a ntlm auth = yes' /etc/samba/smb.conf 
-	systemctl restart samba
+	systemctl restart samba-ad
 fi
 
 cd /usr/share/cranix/templates/radius/
@@ -41,7 +45,6 @@ do
 	if [[ $i == *RADIUS-SETTINGS ]]; then
                 continue
 	fi
-	cp /etc/raddb/$i /etc/raddb/$i-$DATE
 	cp $i /etc/raddb/$i
 done
 ln -fs  ../mods-available/set_logged_on /etc/raddb/mods-enabled/set_logged_on
@@ -49,7 +52,7 @@ ln -fs  ../mods-available/set_logged_on /etc/raddb/mods-enabled/set_logged_on
 sed -i "s#CRANIX_SERVER_NET#${CRANIX_SERVER_NET}#" /etc/raddb/clients.conf
 sed -i "s#CRANIX_WORKGROUP#${CRANIX_WORKGROUP}#"   /etc/raddb/mods-available/mschap
 #Setup customized certificates
-for i in ca.cnf  client.cnf  server.cnf
+for i in ca.cnf  client.cnf  server.cnf xpextensions
 do
 	sed -i "s/#NAME#/${CRANIX_NAME}/"     /etc/raddb/certs/$i
 	sed -i "s/#DOMAIN#/${CRANIX_DOMAIN}/" /etc/raddb/certs/$i
@@ -58,6 +61,8 @@ done
 cd /etc/raddb/certs/
 rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
 ./bootstrap
+
+cp /etc/raddb/certs/ca.pem /srv/www/admin/radius-ca.pem
 
 /usr/bin/systemctl daemon-reload
 /usr/bin/systemctl enable radiusd
