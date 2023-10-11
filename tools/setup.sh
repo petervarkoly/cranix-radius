@@ -54,8 +54,8 @@ sed -i "s#CRANIX_WORKGROUP#${CRANIX_WORKGROUP}#"   /etc/raddb/mods-available/msc
 #Setup customized certificates
 for i in ca.cnf  client.cnf  server.cnf xpextensions
 do
-	sed -i "s/#NAME#/${CRANIX_NAME}/"     /etc/raddb/certs/$i
-	sed -i "s/#DOMAIN#/${CRANIX_DOMAIN}/" /etc/raddb/certs/$i
+	sed -i "s/#NAME#/${CRANIX_NAME}/g"     /etc/raddb/certs/$i
+	sed -i "s/#DOMAIN#/${CRANIX_DOMAIN}/g" /etc/raddb/certs/$i
 done
 
 cd /etc/raddb/certs/

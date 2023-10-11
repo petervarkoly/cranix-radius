@@ -36,13 +36,13 @@ DATE=$( /usr/share/cranix/tools/crx_date.sh )
 for i in ca.cnf  client.cnf  server.cnf xpextensions
 do
         /usr/bin/cp /usr/share/cranix/templates/radius/certs/$i /etc/raddb/certs/$i
-        /usr/bin/sed -i "s/#NAME#/$CRANIX_NAME/"     /etc/raddb/certs/$i
-        /usr/bin/sed -i "s/#DOMAIN#/$CRANIX_DOMAIN/" /etc/raddb/certs/$i
+        /usr/bin/sed -i "s/#NAME#/$CRANIX_NAME/g"     /etc/raddb/certs/$i
+        /usr/bin/sed -i "s/#DOMAIN#/$CRANIX_DOMAIN/g" /etc/raddb/certs/$i
 done
 /usr/bin/cp /usr/share/cranix/templates/radius/certs/Makefile /etc/raddb/certs/
 
-/usr/bin/cd /etc/raddb/certs/
-/usr/bin/rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
+cd /etc/raddb/certs/
+rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
 ./bootstrap
 
 /usr/bin/systemctl enable   radiusd
