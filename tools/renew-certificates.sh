@@ -24,6 +24,10 @@ while [ "$1" != "" ]; do
     shift
 done
 
+if [ -e /usr/share/doc/packages/cranix-radius-certs ]; then
+	echo "Using cranix-radius-certs no renew is necessary"
+	exit 0
+fi
 test -e /etc/sysconfig/cranix || exit 0
 
 # make backup from actuall certificates
