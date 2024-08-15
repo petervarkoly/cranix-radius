@@ -57,12 +57,12 @@ do
 	sed -i "s/#NAME#/${CRANIX_NAME}/g"     /etc/raddb/certs/$i
 	sed -i "s/#DOMAIN#/${CRANIX_DOMAIN}/g" /etc/raddb/certs/$i
 done
-
-cd /etc/raddb/certs/
-rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
-./bootstrap
-
-cp /etc/raddb/certs/ca.pem /srv/www/admin/radius-ca.pem
+if [ ! -e /etc/raddb/certs/server.pem ]; then
+	cd /etc/raddb/certs/
+	rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
+	./bootstrap
+	cp /etc/raddb/certs/ca.pem /srv/www/admin/radius-ca.pem
+fi
 
 /usr/bin/systemctl daemon-reload
 /usr/bin/systemctl enable radiusd
