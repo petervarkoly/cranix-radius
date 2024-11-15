@@ -27,6 +27,11 @@ done
 test -e /etc/sysconfig/cranix || exit 0
 . /etc/sysconfig/cranix
 
+if [ -e /etc/raddb/certs/dh -a ${RESET} -eq 0 ]; then
+	echo "Radius server was already configured"
+	exit
+fi
+
 # make backup from actuall configuration
 DATE=$( /usr/share/cranix/tools/crx_date.sh )
 mkdir -p /var/adm/cranix/backup/${DATE}/etc/raddb/
@@ -51,18 +56,8 @@ ln -fs  ../mods-available/set_logged_on /etc/raddb/mods-enabled/set_logged_on
 
 sed -i "s#CRANIX_SERVER_NET#${CRANIX_SERVER_NET}#" /etc/raddb/clients.conf
 sed -i "s#CRANIX_WORKGROUP#${CRANIX_WORKGROUP}#"   /etc/raddb/mods-available/mschap
-#Setup customized certificates
-for i in ca.cnf  client.cnf  server.cnf xpextensions
-do
-	sed -i "s/#NAME#/${CRANIX_NAME}/g"     /etc/raddb/certs/$i
-	sed -i "s/#DOMAIN#/${CRANIX_DOMAIN}/g" /etc/raddb/certs/$i
-done
-if [ ! -e /etc/raddb/certs/server.pem ]; then
-	cd /etc/raddb/certs/
-	rm -f *.pem *.der *.csr *.crt *.key *.p12 serial* index.txt*
-	./bootstrap
-	cp /etc/raddb/certs/ca.pem /srv/www/admin/radius-ca.pem
-fi
+cd /etc/raddb/certs/
+openssl dhparam -out dh 2048
 
 /usr/bin/systemctl daemon-reload
 /usr/bin/systemctl enable radiusd

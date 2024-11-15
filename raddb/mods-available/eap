@@ -181,7 +181,7 @@ eap {
 		#  In that case, this CA file should contain
 		#  *one* CA certificate.
 		#
-		ca_file = ${cadir}/ca.pem
+		# ca_file = ${cadir}/ca.pem
 
 	 	#  OpenSSL will automatically create certificate chains,
 	 	#  unless we tell it to not do that.  The problem is that
@@ -190,7 +190,7 @@ eap {
 		#
 		#  When setting "auto_chain = no", the server certificate
 		#  file MUST include the full certificate chain.
-	#	auto_chain = yes
+		# auto_chain = yes
 
 		#
 		#  If OpenSSL supports TLS-PSK, then we can use
