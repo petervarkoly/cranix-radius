@@ -29,7 +29,7 @@ test -e /etc/sysconfig/cranix || exit 0
 
 if [ -e /etc/raddb/certs/dh -a ${RESET} -eq 0 ]; then
 	echo "Radius server was already configured"
-	exit
+	exit 0
 fi
 
 # make backup from actuall configuration

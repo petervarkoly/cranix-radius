@@ -25,7 +25,6 @@ install:
 	  mkdir -p $(DESTDIR)/usr/share/cranix/templates/radius
 	  mkdir -p $(DESTDIR)/usr/share/cranix/tools/radius
 	  mkdir -p $(DESTDIR)/usr/lib/systemd/system/radiusd.service.d/
-	  mv raddb/server.pem $(DESTDIR)/etc/raddb/certs/
 	  rsync -aC raddb/ $(DESTDIR)/usr/share/cranix/templates/radius/
 	  rsync -aC tools/ $(DESTDIR)/usr/share/cranix/tools/radius/
 	  install systemd/restart.conf $(DESTDIR)/usr/lib/systemd/system/radiusd.service.d/
